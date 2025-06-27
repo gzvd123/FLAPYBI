@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flappy Bird Icon Generator</title>
+</head>
+<body>
+    <h1>🐦 Flappy Bird Icons</h1>
+    
+    <!-- 192x192 Icon -->
+    <div>
+        <h2>192x192 Icon:</h2>
+        <svg width="192" height="192" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#98FB98;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <rect width="192" height="192" fill="url(#bg)" rx="30"/>
+            <text x="96" y="130" font-size="80" text-anchor="middle" fill="#FF6B6B">🐦</text>
+            <text x="96" y="40" font-size="16" text-anchor="middle" fill="#fff" font-weight="bold">Flappy Bird</text>
+        </svg>
+    </div>
+    
+    <!-- 512x512 Icon -->
+    <div>
+        <h2>512x512 Icon:</h2>
+        <svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#98FB98;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <rect width="512" height="512" fill="url(#bg2)" rx="80"/>
+            <text x="256" y="350" font-size="200" text-anchor="middle" fill="#FF6B6B">🐦</text>
+            <text x="256" y="100" font-size="40" text-anchor="middle" fill="#fff" font-weight="bold">Flappy Bird Vui Nhộn</text>
+        </svg>
+    </div>
+    
+    <script>
+        // Convert SVG to PNG and download
+        function downloadIcon(size) {
+            const svg = document.querySelector(`svg[width="${size}"]`);
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            const img = new Image();
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0);
+                const link = document.createElement('a');
+                link.download = `icon-${size}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+            };
+            img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
+        }
+        
+        // Add download buttons
+        setTimeout(() => {
+            const button192 = document.createElement('button');
+            button192.textContent = 'Download 192x192 PNG';
+            button192.onclick = () => downloadIcon(192);
+            document.body.appendChild(button192);
+            
+            const button512 = document.createElement('button');
+            button512.textContent = 'Download 512x512 PNG';
+            button512.onclick = () => downloadIcon(512);
+            document.body.appendChild(button512);
+        }, 1000);
+    </script>
+</body>
+</html> 

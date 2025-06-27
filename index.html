@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird - Game Vui Nhộn</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF6B6B">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Flappy Bird">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Temporary icon using SVG -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2387CEEB' rx='15'/><text y='70' x='50' text-anchor='middle' font-size='50'>🐦</text></svg>">
+</head>
+<body>
+    <div class="game-container">
+        <canvas id="gameCanvas" width="400" height="600"></canvas>
+        <div class="ui-overlay">
+            <div id="startScreen" class="screen">
+                <h1>🐦 Flappy Bird Vui Nhộn 🐦</h1>
+                <p>Nhấn SPACE hoặc chạm màn hình để bay!</p>
+                <div class="bird-selection">
+                    <h3>Chọn chú chim của bạn:</h3>
+                    <div class="bird-options">
+                        <div class="bird-option active" data-bird="0">🐦</div>
+                        <div class="bird-option" data-bird="1">🦆</div>
+                        <div class="bird-option" data-bird="2">🐔</div>
+                        <div class="bird-option" data-bird="3">🦅</div>
+                    </div>
+                </div>
+                <div class="difficulty-selection">
+                    <h3>Chọn độ khó:</h3>
+                    <div class="difficulty-options">
+                        <div class="difficulty-option active" data-difficulty="easy">🌟 Dễ (3-5 tuổi)</div>
+                        <div class="difficulty-option" data-difficulty="normal">⭐ Bình thường (6+ tuổi)</div>
+                    </div>
+                </div>
+                <button id="startButton">Bắt Đầu Chơi</button>
+            </div>
+            
+            <div id="gameOverScreen" class="screen hidden">
+                <h2>Game Over!</h2>
+                <p id="finalScore">Điểm: 0</p>
+                <p id="encouragement">Bạn đã chơi rất tốt!</p>
+                <button id="restartButton">Chơi Lại</button>
+                <button id="homeButton">Về Trang Chủ</button>
+            </div>
+            
+            <div id="gameUI" class="hidden">
+                <div id="score">Điểm: 0</div>
+                <div id="powerUpIndicator" class="hidden">
+                    <span id="powerUpText">Siêu Năng Lực!</span>
+                    <div id="powerUpTimer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html> 
